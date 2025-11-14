@@ -1,0 +1,85 @@
+Instant Quiz
+· html
+<!DOCTYPE html>
+    .A { background:#dfe7ff; }
+    .B { background:#ffe9df; }
+    .C { background:#e8ffe1; }
+    .D { background:#fff6cc; }
+    #result { margin-top:20px; font-size:20px; font-weight:bold; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div id="options"></div>
+    </div>
+    <div id="result"></div>
+  </div>
+
+
+  <script>
+    const questions = [
+      {
+        q: "When solving a problem, you usually…",
+        answers: {
+          A: "Look for patterns and think logically",
+          B: "Trust your instincts",
+          C: "Picture the solution visually",
+          D: "Talk to others to solve it"
+        }
+      },
+      {
+        q: "In learning, you prefer…",
+        answers: {
+          A: "Math & strategy",
+          B: "Music, art, writing",
+          C: "Diagrams & visuals",
+          D: "Group work"
+        }
+      }
+    ];
+
+
+    const resultsText = {
+      A: "Logical Intelligence",
+      B: "Emotional Intelligence",
+      C: "Creative Intelligence",
+      D: "Social Intelligence"
+    };
+
+
+    let current = 0;
+
+
+    function loadQuestion() {
+      document.getElementById("result").innerHTML = "";
+      const q = questions[current];
+      document.getElementById("question").innerText = q.q;
+      const options = document.getElementById("options");
+      options.innerHTML = "";
+
+
+      for (let key in q.answers) {
+        const btn = document.createElement("button");
+        btn.className = key;
+        btn.innerText = q.answers[key];
+        btn.onclick = () => showResult(key);
+        options.appendChild(btn);
+      }
+    }
+
+
+    function showResult(letter) {
+      document.getElementById("result").innerText = "Your intelligence type: " + resultsText[letter];
+      current++;
+      if (current < questions.length) {
+        setTimeout(loadQuestion, 1500);
+      }
+    }
+
+
+    loadQuestion();
+  </script>
+</body>
+</html>
